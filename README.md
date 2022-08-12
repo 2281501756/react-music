@@ -4,6 +4,10 @@ vite vue3 typescript
 # 安装
 我用的是yarn 如果没有可以使用 npm install yarn -g 来全局安装一下，使用npm也可以
 ```shell
+git clone git@git.acwing.com:DongHAO/musicapp.git  # 拷贝项目
+
+cd musicapp
+
 yarn add #安装依赖
 yarn dev #运行项目
 yarn build #打包项目
