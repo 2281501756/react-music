@@ -1,0 +1,139 @@
+@font-face {
+  font-family: "iconfont"; /* Project id 3577198 */
+  src: url('iconfont.woff2?t=1660038593713') format('woff2'),
+       url('iconfont.woff?t=1660038593713') format('woff'),
+       url('iconfont.ttf?t=1660038593713') format('truetype');
+}
+
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-23_shunxubofang:before {
+  content: "\e658";
+}
+
+.icon-guanbi1:before {
+  content: "\e723";
+}
+
+.icon-guanbi:before {
+  content: "\e659";
+}
+
+.icon-ai23:before {
+  content: "\e68a";
+}
+
+.icon-suijibofang:before {
+  content: "\e622";
+}
+
+.icon-tingzhi:before {
+  content: "\e62a";
+}
+
+.icon-zhankai:before {
+  content: "\e60b";
+}
+
+.icon-zhankaicaidan:before {
+  content: "\e624";
+}
+
+.icon-danquxunhuan:before {
+  content: "\e612";
+}
+
+.icon-zhankai1:before {
+  content: "\e615";
+}
+
+.icon-danquxunhuan1:before {
+  content: "\e66d";
+}
+
+.icon-shipin:before {
+  content: "\e66f";
+}
+
+.icon-xuanzeqizhankai:before {
+  content: "\eb15";
+}
+
+.icon-guanbi2:before {
+  content: "\eca0";
+}
+
+.icon-shengyin_shiti:before {
+  content: "\eca5";
+}
+
+.icon-shengyinwu:before {
+  content: "\eca8";
+}
+
+.icon-kaishi:before {
+  content: "\e626";
+}
+
+.icon-suijibofang1:before {
+  content: "\e603";
+}
+
+.icon-24gl-shuffle:before {
+  content: "\ea75";
+}
+
+.icon-tingzhi1:before {
+  content: "\e643";
+}
+
+.icon-shangyishou:before {
+  content: "\e63c";
+}
+
+.icon-MV:before {
+  content: "\e62c";
+}
+
+.icon-shengyinguanbi:before {
+  content: "\e8b8";
+}
+
+.icon-shengyin:before {
+  content: "\e8b9";
+}
+
+.icon-shexiangji:before {
+  content: "\e610";
+}
+
+.icon-kaishi1:before {
+  content: "\e623";
+}
+
+.icon-hanhan-01-01:before {
+  content: "\e6ae";
+}
+
+.icon-bofangMV:before {
+  content: "\e6a3";
+}
+
+.icon-zhankai2:before {
+  content: "\e641";
+}
+
+.icon-zantingtingzhi:before {
+  content: "\e65a";
+}
+
+.icon-next-fill:before {
+  content: "\e6bb";
+}
+
