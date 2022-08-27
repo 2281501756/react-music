@@ -10,7 +10,7 @@ export type Data = {
   imgUrl: string
   videoUrl: string
 }
-const baseURL = '服务器地址'
+const baseURL = ''
 const data: Data[] = [
   {
     id: 1,
@@ -98,8 +98,8 @@ const data: Data[] = [
   },
   {
     id: 13,
-    name: '爱在西元前',
-    album: '简单爱',
+    name: '简单爱',
+    album: '范特西',
     videoUrl: baseURL + '2-3-简单爱.mp4',
     imgUrl: baseURL + '2-范特西.jpg',
   },
@@ -133,9 +133,9 @@ const data: Data[] = [
   },
   {
     id: 18,
-    name: '威廉城堡',
+    name: '威廉古堡',
     album: '范特西',
-    videoUrl: baseURL + '2-8-威廉城堡.mp4',
+    videoUrl: baseURL + '2-8-威廉古堡.mp4',
     imgUrl: baseURL + '2-范特西.jpg',
   },
   {

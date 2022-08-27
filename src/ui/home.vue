@@ -1,12 +1,14 @@
 <script lang="ts" setup>
 import { onUnmounted, onMounted, ref } from 'vue'
-// import jayData, { Data } from '../data/jay'
 import jayData, { Data } from '../data/mock'
+// import jayData, { Data } from '../data/jay'
 
 let index = 0
+
 const video = ref<Data>(jayData[index])
 const videoDOM = ref<HTMLVideoElement>()
 const progress = ref<HTMLDivElement>()
+const voice = ref<HTMLDivElement>()
 const mode = ref<'random' | 'order' | 'single'>('random')
 const nowTime = ref('00:00')
 const allTime = ref('00:00')
@@ -86,8 +88,12 @@ const changeMode = () => {
 }
 
 // 开始
-const start = () => {
-  videoDOM.value?.play()
+const start = async () => {
+  if (!videoDOM.value) return
+  if (FIRST_START) {
+    firstStartFun()
+  }
+  videoDOM.value.play()
   isPlaying.value = true
   if (INTERVAL_ID !== null) {
     clearInterval(INTERVAL_ID)
@@ -132,6 +138,25 @@ const headerProgress = (e: MouseEvent) => {
     start()
   }
 }
+let handleVoiceStopBind: any = null
+const handleVoice = (e: MouseEvent) => {
+  voiceEventCallback(e)
+  handleVoiceStopBind = handleVoiceStop.bind(this, e)
+  e.target?.addEventListener('mousemove', voiceEventCallback)
+  window.addEventListener('mouseup', handleVoiceStopBind)
+}
+const handleVoiceStop = (e: MouseEvent) => {
+  e.target?.removeEventListener('mousemove', voiceEventCallback)
+  window.removeEventListener('mouseup', handleVoiceStopBind)
+}
+const voiceEventCallback = (e: any) => {
+  if (videoDOM.value && voice.value) {
+    let t = e.offsetX / 100.8
+    videoDOM.value.volume = t
+    voice.value.style.width = (t * 100).toFixed(2) + '%'
+    localStorage.setItem('jayVolume', (e.offsetX / 100.8).toFixed(2))
+  }
+}
 // 选择歌曲
 const selectSong = (id: number) => {
   pause()
@@ -166,6 +191,12 @@ const closeList = () => {
 
 onMounted(() => {
   if (videoDOM.value) {
+    const volume = localStorage.getItem('jayVolume')
+    if (volume && voice.value) {
+      videoDOM.value.volume = Number(volume)
+      voice.value.style.width = (Number(volume) * 100).toFixed(2) + '%'
+    } else videoDOM.value.volume = 0.1
+
     videoDOM.value.oncanplay = () => {
       allTime.value = timeFormatting((videoDOM.value as HTMLVideoElement).duration)
     }
@@ -199,13 +230,80 @@ onMounted(() => {
 onUnmounted(() => {
   if (list.value) list.value.removeEventListener('mousewheel', onmousewheel)
 })
+// 搜索
+const seach = ref('')
+const songData = ref(jayData)
+const handleSeach = () => {
+  songData.value = jayData.filter((song) => {
+    if (song.name.indexOf(seach.value) >= 0) return true
+    else if (song.album.indexOf(seach.value) >= 0) return true
+    else return false
+  })
+}
 
-// 转blob 视频地址加密但是响应时间太长了，得与后端结合不太会
-// const getBlob = () => {
-//   xhrequest(video.value.videoUrl, (t: any) => {
-//     if (videoDOM.value) videoDOM.value.src = URL.createObjectURL(t)
-//   })
-// }
+// 音频可视化
+let FIRST_START = true
+let analyser: any = null
+let bufferLength: any = null
+let dataArray: any = null
+let audioContext: any = null
+
+function firstStartFun() {
+  if (!videoDOM.value) return
+  audioContext = new AudioContext()
+  analyser = audioContext.createAnalyser()
+  analyser.fftSize = 512
+  bufferLength = analyser.frequencyBinCount
+  dataArray = new Uint8Array(bufferLength)
+  let audioSrc = audioContext.createMediaElementSource(videoDOM.value)
+  audioSrc.connect(analyser)
+  analyser.connect(audioContext.destination)
+
+  draw()
+  FIRST_START = false
+}
+
+// cavase 画图
+let canvas: any = null
+let canvasCtx: any = null
+onMounted(() => {
+  canvas = document.querySelector('#canvas')
+  canvasCtx = canvas.getContext('2d')
+})
+function draw() {
+  requestAnimationFrame(draw)
+  analyser.getByteTimeDomainData(dataArray)
+
+  canvasCtx.fillStyle = 'rgb(40, 135, 227)'
+  canvasCtx.fillRect(0, 0, canvas.width, canvas.height)
+  canvasCtx.beginPath()
+
+  var sliceWidth = (canvas.width * 1.0) / bufferLength
+  var x = 0
+
+  for (var i = 0; i < bufferLength; i++) {
+    var v = dataArray[i] / 128.0
+    var y = (v * canvas.height) / 2
+
+    if (i === 0) {
+      canvasCtx.moveTo(x, y)
+    } else {
+      canvasCtx.lineTo(x, y)
+    }
+
+    x += sliceWidth
+  }
+
+  canvasCtx.lineTo(canvas.width, canvas.height / 2)
+  canvasCtx.lineTo(canvas.width, canvas.height)
+  canvasCtx.lineTo(0, canvas.height)
+  canvasCtx.lineTo(0, 0)
+  canvasCtx.save()
+  canvasCtx.clip()
+  canvasCtx.fillStyle = 'rgba(22, 25, 30)'
+  canvasCtx.fillRect(0, 0, canvas.width, canvas.height)
+  canvasCtx.restore()
+}
 </script>
 
 <template>
@@ -219,6 +317,7 @@ onUnmounted(() => {
         ></i>
       </div>
       <video
+        crossOrigin="anonymous"
         ref="videoDOM"
         :src="video.videoUrl"
         controls
@@ -238,9 +337,10 @@ onUnmounted(() => {
           class="iconfont icon-guanbi"
         ></i>
       </div>
+      <input v-model="seach" @input="handleSeach()" type="text" />
       <div class="list-scroll" ref="list">
         <div
-          v-for="item in jayData"
+          v-for="item in songData"
           :key="item.id"
           :class="['song', { songActive: item.id === video.id }]"
           @click="selectSong(item.id - 1)"
@@ -301,12 +401,28 @@ onUnmounted(() => {
     </div>
     <div class="time-bar">
       <div>{{ nowTime }}</div>
+      <div class="voice-bar" @mousedown="handleVoice($event)" title="声音调节">
+        <div class="voice" ref="voice"></div>
+      </div>
       <div>{{ allTime }}</div>
     </div>
   </div>
 </template>
 
 <style scoped>
+.container {
+  width: 400px;
+  height: 600px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 32px;
+  border-radius: 5px;
+  transition: all 0.5s;
+}
+
 #container.MV-active {
   width: 700px;
 }
@@ -329,18 +445,7 @@ video {
   height: 100%;
   z-index: 99;
 }
-.container {
-  width: 400px;
-  height: 600px;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: white;
-  padding: 32px;
-  border-radius: 5px;
-  transition: all 0.5s;
-}
+
 .header {
   height: 30px;
   text-align: right;
@@ -409,6 +514,21 @@ i:active {
   background-color: #2887e3;
   cursor: pointer;
 }
+.voice-bar {
+  margin-bottom: 10px;
+  height: 5px;
+  width: 30%;
+  border-radius: 2.5px;
+  overflow: hidden;
+  background-color: #ccc;
+  cursor: pointer;
+}
+.voice {
+  height: 5px;
+  width: 10%;
+  background-color: #111;
+  cursor: pointer;
+}
 .time-bar {
   width: 100%;
   display: flex;
@@ -421,8 +541,20 @@ i:active {
   background-color: white;
   width: 100%;
   height: 100%;
-  padding: 50px 10px 10px 10px;
+  padding: 20px 10px 10px 10px;
 }
+.list > input {
+  width: 85%;
+  height: 40px;
+  margin: 5px 0;
+  border-radius: 5px;
+  border: 2px solid #3271ae;
+  outline: none;
+  padding: 0 5px;
+  font-size: 18px;
+  position: relative;
+}
+
 .song {
   display: flex;
   margin: 10px;
@@ -460,7 +592,7 @@ i:active {
 
 .list-scroll {
   overflow-y: scroll;
-  height: 100%;
+  height: calc(100% - 50px);
 }
 .close-list {
   position: absolute;
