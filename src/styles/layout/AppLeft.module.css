@@ -1,0 +1,13 @@
+.appLeft {
+  width: 220px;
+  height: calc(100% - 80px);
+  border-right: 1px solid var(--base-border-color);
+}
+.title {
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;  
+  margin-bottom: 20px;
+}

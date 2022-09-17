@@ -1,0 +1,15 @@
+.button {
+  height: 50px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+.button:hover {
+  background-color: #eee;
+}
+
+.button > span {
+  margin: 0 10px;
+  font-weight: 500;
+  font-size: 18px;
+}
