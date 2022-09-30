@@ -1,0 +1,28 @@
+.root {
+  height: 100%;
+  width: 30%;
+  border-right: 1px solid var(--base-border-color);
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 0 5px;
+}
+
+.root img {
+  width: 60px;
+  height: 60px;
+  border-radius: 5px;
+}
+
+.mainButton {
+  font-size: 30px !important; 
+}
+
+.button {
+  border-radius: 50%;
+  padding: 10px;
+  cursor: pointer;
+}
+.button:hover {
+  background-color: rgba(200, 200, 200, 0.5);
+}

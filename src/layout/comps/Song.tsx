@@ -1,3 +1,5 @@
+import { useContext } from 'react'
+import GlobalContext from '../../context/GlobalContext'
 import styles from '../../styles/models/Song.module.css'
 
 type Props = {
@@ -11,9 +13,17 @@ type Props = {
 }
 
 const Song = ({ song }: Props) => {
+  const { setSongData, videoDOM } = useContext(GlobalContext)
   const { id, name, album, imgUrl, videoUrl } = song
+  const handleSong = () => {
+    setSongData(song)
+    if (videoDOM?.current?.src) videoDOM.current.src = videoUrl
+    videoDOM?.current?.addEventListener('canplay', () => {
+      videoDOM.current?.play()
+    })
+  }
   return (
-    <div className={styles.song}>
+    <div className={styles.song} onClick={handleSong}>
       <span className={styles.index}>{id}</span>
       <span>{name}</span>
       <span>{album}</span>

@@ -10,7 +10,15 @@ export type Data = {
   imgUrl: string
   videoUrl: string
 }
-const baseURL = 'https://app464.acapp.acwing.com.cn:20443/jay/'
+const baseURL = import.meta.env.VITE_BASE_URL
+export const initData: Data = {
+  id: 1,
+  name: '可爱女人',
+  album: 'jay',
+  videoUrl: baseURL + '1-1-可爱女人.mp4',
+  imgUrl: baseURL + '1-jay.jpg',
+}
+
 const data: Data[] = [
   {
     id: 1,

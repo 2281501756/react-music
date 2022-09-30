@@ -28,6 +28,9 @@
   height: 100%;
   width: 100px;
   line-height: 60px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .song > span:nth-child(3), .song > span:nth-child(4) {
   float: right;

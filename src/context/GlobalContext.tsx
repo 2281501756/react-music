@@ -1,10 +1,11 @@
 import React, { createContext } from 'react'
+import { Data, initData } from '../data/jay'
 
 interface GlobalState {
   router: string
   setRouter: Function
-  imgURL: string
-  setImgURL: Function
+  songData: Data
+  setSongData: Function
   videoDOM: React.RefObject<HTMLVideoElement> | null
 }
 const globalState: GlobalState = {
@@ -12,12 +13,12 @@ const globalState: GlobalState = {
   setRouter: () => {
     throw new Error('路由未定义')
   },
-  imgURL: '',
-  setImgURL: () => {
+  songData: initData,
+  setSongData: () => {
     throw new Error('路由未定义')
   },
   videoDOM: null,
 }
 
-const AppContext = createContext(globalState)
-export default AppContext
+const GlobalContext = createContext(globalState)
+export default GlobalContext

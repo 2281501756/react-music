@@ -9,6 +9,7 @@ const AppLeft = ({}: Props) => {
       <div className={styles.title}>Jay Music</div>
       <LeftButton title="搜索" iconName="icon-search2" url="seatch"></LeftButton>
       <LeftButton title="我喜欢" iconName="icon-love" url="favourite"></LeftButton>
+      <LeftButton title="单词本" iconName="icon-xuanzeqizhankai" url="word"></LeftButton>
     </div>
   )
 }

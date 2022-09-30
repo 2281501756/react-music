@@ -8,7 +8,7 @@ const Search = () => {
     console.log(value)
   }
   return (
-    <div className={styles.seatch}>
+    <div className={styles.search}>
       <SongSearch onSubmit={search}></SongSearch>
       <div className={styles.songHead}>
         <span>id</span>
@@ -17,8 +17,7 @@ const Search = () => {
         <span>歌手</span>
       </div>
       {data.map((item) => {
-        if (item.id > 10) return
-        else return <Song song={item}></Song>
+        return <Song song={item} key={item.id}></Song>
       })}
     </div>
   )
