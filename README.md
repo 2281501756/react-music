@@ -1,6 +1,6 @@
 # 体验地址
 
-[https://app464.acapp.acwing.com.cn:20443/musicapp/index.html](https://app464.acapp.acwing.com.cn:20443/musicapp/index.html)
+[https://app464.acapp.acwing.com.cn/acwing/musicapp/](https://app464.acapp.acwing.com.cn/acwing/musicapp/)
 
 # 技术栈
 
