@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { onUnmounted, onMounted, ref } from 'vue'
-import jayData, { Data } from '../data/mock'
-// import jayData, { Data } from '../data/jay'
+// import jayData, { Data } from '../data/mock'
+import jayData, { Data } from '../data/jay'
 
 let index = 0
 

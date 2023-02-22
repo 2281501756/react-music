@@ -10,7 +10,7 @@ export type Data = {
   imgUrl: string
   videoUrl: string
 }
-const baseURL = ''
+const baseURL = 'https://app464.acapp.acwing.com.cn/acwing/jay/'
 const data: Data[] = [
   {
     id: 1,
@@ -371,9 +371,9 @@ const data: Data[] = [
   },
   {
     id: 52,
-    name: '舞乱春秋',
+    name: '乱舞春秋',
     album: '七里香',
-    videoUrl: baseURL + '5-7-舞乱春秋.mp4',
+    videoUrl: baseURL + '5-7-乱舞春秋.mp4',
     imgUrl: baseURL + '5-七里香.jpg',
   },
   {
@@ -1174,6 +1174,48 @@ const data: Data[] = [
     album: '最伟大的作品',
     videoUrl: baseURL + '15-5-我是如此相信.mp4',
     imgUrl: baseURL + '15-最伟大的作品.jpg',
+  },
+  {
+    id: 167,
+    name: '最伟大的作品',
+    album: '最伟大的作品',
+    videoUrl: baseURL + '15-6-最伟大的作品.mp4',
+    imgUrl: baseURL + '15-最伟大的作品.jpg',
+  },
+  {
+    id: 168,
+    name: '还在流浪',
+    album: '最伟大的作品',
+    videoUrl: baseURL + '15-7-还在流浪.mp4',
+    imgUrl: baseURL + '15-最伟大的作品.jpg',
+  },
+  {
+    id: 169,
+    name: '粉色海洋',
+    album: '最伟大的作品',
+    videoUrl: baseURL + '15-8-粉色海洋.mp4',
+    imgUrl: baseURL + '15-最伟大的作品.jpg',
+  },
+  {
+    id: 170,
+    name: '错过的烟火',
+    album: '最伟大的作品',
+    videoUrl: baseURL + '15-9-错过的烟火.mp4',
+    imgUrl: baseURL + '15-最伟大的作品.jpg',
+  },
+  {
+    id: 171,
+    name: '红颜如霜',
+    album: '最伟大的作品',
+    videoUrl: baseURL + '15-10-红颜如霜.mp4',
+    imgUrl: baseURL + '15-最伟大的作品.jpg',
+  },
+  {
+    id: 172,
+    name: '纽约地铁',
+    album: '未知专辑',
+    videoUrl: baseURL + '0-1-纽约地铁.mp3',
+    imgUrl: baseURL + '0-未知专辑.jpg',
   },
 ]
 
